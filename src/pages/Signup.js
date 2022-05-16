@@ -19,14 +19,16 @@ function Signup() {
     e.preventDefault();
     //console.log("Signup", username, password);
 
-    if (username.length < 5) {
+    if (!username || !password || !email || !firstName || !lastName) {
+      setErrorMessage("Please fill out Username, Password, Email, First Name, and Last Name fields.")
+    } else if (username.length < 5) {
       setErrorMessage("Username must have atleast 5 characters.");
     } else if (password.length < 6) {
       setErrorMessage("Password must be atleast 6 characters.");
     } else if (password.includes("password")) {
-      setErrorMessage("Password can't include password.");
+      setErrorMessage("Your password can't include the word password.");
     } else if (!email.includes("@")) {
-      setErrorMessage("Email must include an @ symbol.");
+      setErrorMessage("Entered email is not valid.");
     } else {
 
     post("/users/signup", {
