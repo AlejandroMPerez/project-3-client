@@ -5,10 +5,10 @@ function Home() {
 
     React.useEffect(() => {
         let token = localStorage.getItem("authToken");
-        console.log("This is the token", token)
+       // console.log("This is the token", token)
         get("/users/login-test")
             .then((results) => {
-                console.log("Are we logged in?", results.data)
+                //console.log("Are we logged in?", results.data)
             })
             .catch((err) => {
                 console.log(err.message)
@@ -18,6 +18,7 @@ function Home() {
   return (
     <div>
       <h1>Home</h1>
+      <p></p>
     </div>
   );
 }
