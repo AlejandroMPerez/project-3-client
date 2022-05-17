@@ -5,8 +5,8 @@ function NavBar() {
   const navigate = useNavigate();
 
   const logout = () => {
-    localStorage.removeItem("authToken");
-    console.log("You are logged out");
+    localStorage.clear();
+    //console.log("You are logged out");
     navigate("/");
   };
 

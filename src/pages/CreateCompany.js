@@ -1,6 +1,6 @@
 import React from "react";
 import { post } from "../authService/authService";
-import { useNavigate } from "react-router-dom"
+//mport { useNavigate } from "react-router-dom"
 
 function CreateCompany() {
   const [image, setImage] = React.useState("");
@@ -15,7 +15,7 @@ function CreateCompany() {
   const [url, setUrl] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   function checkCreateCompanyFields(e) {
     e.preventDefault();
@@ -38,8 +38,9 @@ function CreateCompany() {
       email: email,
       url: url,
     })
-    .then(() => {
-        navigate("/all-companies");
+    .then((results) => {
+        console.log("New Company", results.data)
+        //navigate("/all-companies");
     })
     .catch((err) => {
         console.log("Something went wrong", err.message);
@@ -47,14 +48,30 @@ function CreateCompany() {
     }
   }
 
+  function handleFileUpload(e) {
+    
+    //create FormData (object)
+    const uploadData = new FormData()
+
+    uploadData.append("imageUrl", e.target.files[0])
+
+    post("/companies/image-upload", uploadData)
+        .then((results) => {
+            console.log("This is the image path", results.data);
+            setImage(results.data)
+        })
+        .catch((err) => {
+            console.log("Error", err.message);
+        })
+  }
+
   return (
     <section>
       <h1>Create Business</h1>
       <form onSubmit={checkCreateCompanyFields}>
         <input
-          onChange={(e) => setImage(e.target.value)}
-          name="image"
-          value={image}
+          onChange={(e) => handleFileUpload(e)}
+          type="file"
         />
         <label>Name</label>
         <input

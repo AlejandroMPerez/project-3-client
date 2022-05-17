@@ -1,5 +1,5 @@
 import React from "react";
-import { post, get } from "../authService/authService";
+import { post } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
 
 function UpdateUser() {
@@ -13,6 +13,7 @@ function UpdateUser() {
   const [updateErrorMessage, setUpdateErrorMessage] = React.useState("");
 
 
+  //PREPOPULATE FIELDS WITH CURRENT ACCOUNT INFO
 //   get("/users/update", {
 //     username: currentUser.username,
 //     email: currentUser.email,
@@ -31,10 +32,10 @@ function UpdateUser() {
 //       console.log("Something went wrong", err.message);
 //     });
 
+const navigate = useNavigate();
 
   function checkUpdateFields(e) {
     e.preventDefault();
-    const navigate = useNavigate();
     //console.log("Signup", username, password);
 
     if (updateUsername.length < 5) {
