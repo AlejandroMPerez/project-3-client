@@ -11,7 +11,6 @@ import CreateCompany from "./pages/CreateCompany";
 import AllCompanies from "./pages/AllCompanies";
 import FindCompanyById from "./pages/FindCompanyById";
 import UpdateCompany from "./pages/UpdateCompany";
-import GoogleGeocode from "./components/GoogleGeocode";
 
 function App() {
   return (
@@ -29,7 +28,6 @@ function App() {
         <Route path="/all-companies" element={<AllCompanies />} />
         <Route path="/all-companies/:id" element={<FindCompanyById />} />
         <Route path="/all-companies/:id/edit" element={<UpdateCompany />} />
-        <Route path="/geocode" element={<GoogleGeocode />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

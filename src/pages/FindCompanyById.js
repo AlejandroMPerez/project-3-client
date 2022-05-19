@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useRef, useCallback } from "react";
 import { get, post } from "../authService/authService";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {GoogleMap, useLoadScript, Marker, InfoWindow} from "@react-google-maps/api";
+import {
+  GoogleMap,
+  useLoadScript,
+  LoadScript,
+  Marker,
+} from "@react-google-maps/api";
 
 const FindCompanyById = () => {
   const [companyId, setCompanyId] = React.useState({});
-  const [geocodeData, setGeocodeData] = React.useState({})
+  const [geocodeDataLat, setGeocodeDataLat] = React.useState(0);
+  const [geocodeDataLng, setGeocodeDataLng] = React.useState(0);
 
   //Find Company By ID
   const params = useParams();
@@ -37,53 +43,61 @@ const FindCompanyById = () => {
   }
 
   //Google Geocoding API
-    React.useEffect(() => {
-    let location = companyId.address + " " + companyId.city + " " + companyId.state;
+  React.useEffect(() => {
+    let location =
+      companyId.address + " " + companyId.city + " " + companyId.state;
     axios
       .get("https://maps.googleapis.com/maps/api/geocode/json", {
         params: {
           address: location,
-          key: "AIzaSyAk05NcDgWu-jzhgYR_0294MuC2r-_BntY",
+          key: "AIzaSyD8Hloyso4xyJAYNWQqbd-iLsgqOxW_qE4",
         },
       })
       .then((response) => {
-        setGeocodeData(response.data.results[0].geometry.location);
+        console.log("LAT", response.data.results[0].geometry.location.lat);
+        console.log("LNG", response.data.results[0].geometry.location.lng);
+        setGeocodeDataLat(response.data.results[0].geometry.location.lat);
+        setGeocodeDataLng(response.data.results[0].geometry.location.lng);
       })
       .catch((err) => {
         console.log(err);
       });
-    }, [companyId]);
+  }, [companyId]);
   //console.log("GEOCODE DATA", geocodeData)
 
   //Google Maps API
-    const libraries = ["places"];
+  // const libraries = ["places"];
 
-    //Google Map dimension
-    const mapContainerStyle = {
-        width: "600",
-        height: "500"
-    }
-    //console.log("Before Passed To Center", geocodeData)
-    //Where the business is located
-    const center = {
-        lat: geocodeData.lat,
-        lng: geocodeData.lng
-    }
-    console.log("CENTER", center)
+  const mapContainerStyle = {
+    width: "600px",
+    height: "500px",
+  };
+  //console.log("Before Passed To Center", geocodeData)
+  const center = {
+    lat: geocodeDataLat,
+    lng: geocodeDataLng,
+  };
+  console.log("CENTER", center);
+  console.log("Geocode Lat", geocodeDataLat);
+  console.log("Gecodoe Lng", geocodeDataLng);
 
-    const options = {
-      disableDefaultUI: true, // disables default map widget features (zoom, satellite view etc)
-      zoomControl: true,
-    };
+  const options = {
+    disableDefaultUI: true, // disables default map widget features (zoom, satellite view etc)
+    zoomControl: true,
+  };
 
-    const {isLoaded, loadError} = useLoadScript({
-      key: "AIzaSyAk05NcDgWu-jzhgYR_0294MuC2r-_BntY",
-      libraries,
-    });
+  const mapRef = useRef();
+  const onMapLoad = useCallback((map) => {
+    mapRef.current = map;
+  }, []);
 
-    if (loadError) return "Error loading maps";
-    if (!isLoaded) return "Loading Maps";
+  // const { isLoaded, loadError } = useLoadScript({
+  //   googleMapsApiKey: "AIzaSyD8Hloyso4xyJAYNWQqbd-iLsgqOxW_qE4",
+  //   libraries,
+  // });
 
+  // if (loadError) return "Error loading maps";
+  // if (!isLoaded) return "Loading Maps";
 
   return (
     <div>
@@ -110,15 +124,19 @@ const FindCompanyById = () => {
       {id === companyId.creatorId && (
         <button onClick={deleteCompany}>Delete</button>
       )}
-      <br/>
-      <GoogleMap 
-        mapContainerStyle={mapContainerStyle} 
-        zoom={10} 
-        center={center}
-        options={options}
+      <br />
+      <LoadScript googleMapsApiKey="AIzaSyD8Hloyso4xyJAYNWQqbd-iLsgqOxW_qE4">
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={13}
+          center={center}
+          options={options}
+          // onLoad={onMapLoad}
         >
-        <Marker position={{ lat: geocodeData.lat, lng: geocodeData.lng }}/>
-      </GoogleMap>  
+          <Marker position={{lat: geocodeDataLat, lng: geocodeDataLng}} />
+          
+        </GoogleMap>
+      </LoadScript>
     </div>
   );
 };
