@@ -16,6 +16,7 @@ function NavBar() {
         <Link to="/">Home</Link>
         <Link to="/all-companies">Find Business</Link>
         <Link to="/create">Create Business</Link>
+        <Link to="/update">Update Profile</Link>
         <Link to="/" onClick={logout}>Logout</Link>
       </nav>
     );

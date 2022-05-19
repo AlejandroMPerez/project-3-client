@@ -1,5 +1,5 @@
 import React from "react";
-import { post } from "../authService/authService";
+import { post, get } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
 
 function UpdateUser() {
@@ -14,25 +14,16 @@ function UpdateUser() {
 
 
   //PREPOPULATE FIELDS WITH CURRENT ACCOUNT INFO
-//   get("/users/update", {
-//     username: currentUser.username,
-//     email: currentUser.email,
-//     firstName: currentUser.firstName,
-//     lastName: currentUser.lastName,
-//     dateOfBirth: currentUser.dateOfBirth,
-//     city: currentUser.city,
-//     state: currentUser.state,
+//   React.useEffect(() => {get("/users/update")
+//   .then((results) => {
+//     console.log("Results", results.data);
 //   })
-//     .then((results) => {
-//       //console.log("Results", results.data.token);
-//       localStorage.setItem("authToken", results.data.token);
-//       navigate("/");
-//     })
-//     .catch((err) => {
-//       console.log("Something went wrong", err.message);
-//     });
+//   .catch((err) => {
+//     console.log("Something went wrong", err.message);
+//   }); 
+// }, [])
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   function checkUpdateFields(e) {
     e.preventDefault();
@@ -41,7 +32,7 @@ const navigate = useNavigate();
     if (updateUsername.length < 5) {
         setUpdateErrorMessage("Username must have atleast 5 characters.");
     } else if (!updateEmail.includes("@")) {
-        setUpdateErrorMessage("Email must include an @ symbol.");
+        setUpdateErrorMessage("Entered email is not valid.");
     } else {
       post("/users/update", {
         username: updateUsername,
@@ -55,12 +46,22 @@ const navigate = useNavigate();
         .then((results) => {
           //console.log("Results", results.data.token);
           localStorage.setItem("authToken", results.data.token);
-          navigate("/");
         })
         .catch((err) => {
           console.log("Something went wrong", err.message);
         });
     }
+  }
+
+  function deleteUser() {
+    post("/users/delete")
+    .then(() => {
+      localStorage.clear();
+      navigate("/")
+    })
+    .catch((err) => {
+      console.log(err.message)
+    })
   }
 
   return (
@@ -113,7 +114,7 @@ const navigate = useNavigate();
         <button type="submit">Update Profile!</button>
         <p>{updateErrorMessage}</p>
       </form>
-      <button>Delete Profile</button>
+      <button onClick={deleteUser}>Delete Profile</button>
     </div>
   );
 }

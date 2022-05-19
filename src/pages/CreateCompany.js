@@ -1,6 +1,6 @@
 import React from "react";
 import { post } from "../authService/authService";
-//mport { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 function CreateCompany() {
   const [image, setImage] = React.useState("");
@@ -15,7 +15,7 @@ function CreateCompany() {
   const [url, setUrl] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
 
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   function checkCreateCompanyFields(e) {
     e.preventDefault();
@@ -23,7 +23,7 @@ function CreateCompany() {
     if (!name || !address || !city || !state || !zip) {
         setErrorMessage("Please fill out Name, Address, City, State, and Zip Code fields.");
       } else if (!email.includes("@")) {
-        setErrorMessage("Email must include an @ symbol.");
+        setErrorMessage("Entered email is not valid.");
       } else {
 
     post("/companies/create", {
@@ -40,7 +40,7 @@ function CreateCompany() {
     })
     .then((results) => {
         console.log("New Company", results.data)
-        //navigate("/all-companies");
+        navigate("/all-companies");
     })
     .catch((err) => {
         console.log("Something went wrong", err.message);
@@ -48,8 +48,8 @@ function CreateCompany() {
     }
   }
 
+  //Cloudinary
   function handleFileUpload(e) {
-    
     //create FormData (object)
     const uploadData = new FormData()
 
@@ -80,9 +80,11 @@ function CreateCompany() {
           value={name}
         />
         <label>About</label>
-        <input
+        <textarea
           onChange={(e) => setAbout(e.target.value)}
           name="about"
+          cols="10"
+          rows="5"
           value={about}
         />
         <label>Address</label>
