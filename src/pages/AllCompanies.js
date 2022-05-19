@@ -19,7 +19,7 @@ function AllCompanies() {
   React.useEffect(() => {
     get("/companies/all-companies")
     .then((response) => {
-      console.log("RESPONSE.DATA", response)
+      //console.log("RESPONSE.DATA", response)
       setCompaniesArr(response.data);
     })
     .catch((err) => {

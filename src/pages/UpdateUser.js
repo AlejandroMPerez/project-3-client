@@ -13,20 +13,21 @@ function UpdateUser() {
   // const [updateState, setUpdateState] = React.useState("");
   const [updateErrorMessage, setUpdateErrorMessage] = React.useState("");
 
+  const navigate = useNavigate();
 
   //PREPOPULATE FIELDS WITH CURRENT ACCOUNT INFO
   React.useEffect(() => {
     get("/users/update")
     .then((results) => {
-      setUser("GET REQUEST", results.data)
-      console.log(results.data)
+      setUser(results.data)
     })
     .catch((err) => {
       console.log("Something went wrong", err.message);
     }); 
   }, [])
+  
+  //console.log("USER", user)
 
-  const navigate = useNavigate();
 
   function create(e) {
     e.preventDefault();
@@ -34,6 +35,7 @@ function UpdateUser() {
     post("/users/update", user)
       .then((results) => {
         console.log("Results", results.data);
+        navigate("/")
       })
       .catch((err) => {
         console.log("Error", err.message);

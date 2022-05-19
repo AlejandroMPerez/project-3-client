@@ -91,18 +91,21 @@ function CreateCompany() {
         <input
           onChange={(e) => setAddress(e.target.value)}
           name="address"
+          placeholder="ex: 1234 SW 1 Ave"
           value={address}
         />
         <label>City</label>
         <input
           onChange={(e) => setCity(e.target.value)}
           name="city"
+          placeholder="ex: Miami"
           value={city}
         />
         <label>State</label>
         <input
           onChange={(e) => setState(e.target.value)}
           name="state"
+          placeholder="ex: FL"
           value={state}
         />
         <label>Zip Code</label>

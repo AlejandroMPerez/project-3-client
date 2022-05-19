@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "./Navbar.css"
 
 function NavBar() {
   const navigate = useNavigate();
@@ -13,19 +14,25 @@ function NavBar() {
   if (localStorage.getItem("authToken")) {
     return (
       <nav>
-        <Link to="/">Home</Link>
-        <Link to="/all-companies">Find Business</Link>
-        <Link to="/create">Create Business</Link>
-        <Link to="/update">Update Profile</Link>
-        <Link to="/" onClick={logout}>Logout</Link>
+        <div>ABILITY</div>
+        <ul>
+          <Link className="links" to="/">Home</Link>
+          <Link className="links" to="/all-companies">Find Business</Link>
+          <Link className="links" to="/create">Create Business</Link>
+          <Link className="links" to="/update">Update Profile</Link>
+          <Link className="links" to="/" onClick={logout}>Logout</Link>
+        </ul>
       </nav>
     );
   } else {
     return (
       <nav>
-        <Link to="/">Home</Link>
-        <Link to="/signup">Signup</Link>
-        <Link to="/login">Login</Link>
+       <div>ABILITY</div>
+        <ul>
+          <Link className="links" to="/">Home</Link>
+          <Link className="links" to="/signup">Signup</Link>
+          <Link className="links" to="/login">Login</Link>
+          </ul>
       </nav>
     );
   }
