@@ -5,7 +5,6 @@ import axios from "axios";
 import {
   GoogleMap,
   useLoadScript,
-  LoadScript,
   Marker,
 } from "@react-google-maps/api";
 
@@ -66,7 +65,7 @@ const FindCompanyById = () => {
   //console.log("GEOCODE DATA", geocodeData)
 
   //Google Maps API
-  // const libraries = ["places"];
+  const libraries = ["places"];
 
   const mapContainerStyle = {
     width: "600px",
@@ -86,18 +85,13 @@ const FindCompanyById = () => {
     zoomControl: true,
   };
 
-  const mapRef = useRef();
-  const onMapLoad = useCallback((map) => {
-    mapRef.current = map;
-  }, []);
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: "AIzaSyD8Hloyso4xyJAYNWQqbd-iLsgqOxW_qE4",
+    libraries,
+  });
 
-  // const { isLoaded, loadError } = useLoadScript({
-  //   googleMapsApiKey: "AIzaSyD8Hloyso4xyJAYNWQqbd-iLsgqOxW_qE4",
-  //   libraries,
-  // });
-
-  // if (loadError) return "Error loading maps";
-  // if (!isLoaded) return "Loading Maps";
+  if (loadError) return "Error loading maps";
+  if (!isLoaded) return "Loading Maps";
 
   return (
     <div>
@@ -125,18 +119,14 @@ const FindCompanyById = () => {
         <button onClick={deleteCompany}>Delete</button>
       )}
       <br />
-      <LoadScript googleMapsApiKey="AIzaSyD8Hloyso4xyJAYNWQqbd-iLsgqOxW_qE4">
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={13}
           center={center}
           options={options}
-          // onLoad={onMapLoad}
         >
-          <Marker position={{lat: geocodeDataLat, lng: geocodeDataLng}} />
-          
+          {geocodeDataLat && <Marker position={{lat: geocodeDataLat, lng: geocodeDataLng}} />}
         </GoogleMap>
-      </LoadScript>
     </div>
   );
 };
