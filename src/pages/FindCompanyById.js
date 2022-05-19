@@ -2,12 +2,13 @@ import React from "react";
 import { get, post } from "../authService/authService";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {GoogleMap, LoadScript, Marker} from "@react-google-maps/api";
+import {GoogleMap, useLoadScript, Marker, InfoWindow} from "@react-google-maps/api";
 
 const FindCompanyById = () => {
   const [companyId, setCompanyId] = React.useState({});
   const [geocodeData, setGeocodeData] = React.useState({})
 
+  //Find Company By ID
   const params = useParams();
 
   React.useEffect(() => {
@@ -21,13 +22,21 @@ const FindCompanyById = () => {
       });
   }, []);
 
+  const id = localStorage.getItem("id");
+  //console.log(id)
+  //console.log(companyId.creatorId)
+
+  const navigate = useNavigate();
+
+  function deleteCompany() {
+    post(`/companies/all-companies/${params.id}/edit/delete`)
+      .then(() => {
+        navigate("/all-companies");
+      })
+      .catch((err) => [console.log(err.message)]);
+  }
+
   //Google Geocoding API
-    //Used in Gooogle Geocoding API
-    //console.log("LOCATION", location)
-    let location2 = "8401 SW 107th Ave Miami FL"
-    
-    //console.log(location)
-    //console.log(location2)
     React.useEffect(() => {
     let location = companyId.address + " " + companyId.city + " " + companyId.state;
     axios
@@ -43,35 +52,38 @@ const FindCompanyById = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [companyId]);
-  console.log("GEOCODE DATA", geocodeData)
+    }, [companyId]);
+  //console.log("GEOCODE DATA", geocodeData)
 
   //Google Maps API
     const libraries = ["places"];
 
+    //Google Map dimension
     const mapContainerStyle = {
         width: "600",
         height: "500"
     }
-
+    //console.log("Before Passed To Center", geocodeData)
+    //Where the business is located
     const center = {
         lat: geocodeData.lat,
         lng: geocodeData.lng
     }
+    console.log("CENTER", center)
 
-  const id = localStorage.getItem("id");
-  //console.log(id)
-  //console.log(companyId.creatorId)
+    const options = {
+      disableDefaultUI: true, // disables default map widget features (zoom, satellite view etc)
+      zoomControl: true,
+    };
 
-  const navigate = useNavigate();
+    const {isLoaded, loadError} = useLoadScript({
+      key: "AIzaSyAk05NcDgWu-jzhgYR_0294MuC2r-_BntY",
+      libraries,
+    });
 
-  function deleteCompany() {
-    post(`/companies/all-companies/${params.id}/edit/delete`)
-      .then(() => {
-        navigate("/all-companies");
-      })
-      .catch((err) => [console.log(err.message)]);
-  }
+    if (loadError) return "Error loading maps";
+    if (!isLoaded) return "Loading Maps";
+
 
   return (
     <div>
@@ -98,6 +110,15 @@ const FindCompanyById = () => {
       {id === companyId.creatorId && (
         <button onClick={deleteCompany}>Delete</button>
       )}
+      <br/>
+      <GoogleMap 
+        mapContainerStyle={mapContainerStyle} 
+        zoom={10} 
+        center={center}
+        options={options}
+        >
+        <Marker position={{ lat: geocodeData.lat, lng: geocodeData.lng }}/>
+      </GoogleMap>  
     </div>
   );
 };
