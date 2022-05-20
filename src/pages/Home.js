@@ -1,24 +1,20 @@
 import React from "react";
-// import { get } from "../authService/authService"
+import "./Home.css"
 
 function Home() {
 
-    // React.useEffect(() => {
-    //     let token = localStorage.getItem("authToken");
-    //    console.log("This is the token", token)
-    //     get("/users/login-test")
-    //         .then((results) => {
-    //             console.log("Are we logged in?", results.data)
-    //         })
-    //         .catch((err) => {
-    //             console.log(err.message)
-    //         })
-    // }, [])
-
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <>
+      <section className="background-image">
+        {/* Background Image */}
+      </section>
+      <section className="our-why-background">
+        <div className="div">
+          <h2>Our Why</h2>
+          <p>This website is designed to help provide adults with mental disabilities <br/> the resources and tools to find employment with local businesses.</p>
+        </div>
+      </section>
+    </>
   );
 }
 

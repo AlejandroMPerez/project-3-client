@@ -14,7 +14,7 @@ import UpdateCompany from "./pages/UpdateCompany";
 
 function App() {
   return (
-    <div>
+    <>
       <header>
         <NavBar />
       </header>
@@ -30,7 +30,7 @@ function App() {
         <Route path="/all-companies/:id/edit" element={<UpdateCompany />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </div>
+    </>
   );
 }
 

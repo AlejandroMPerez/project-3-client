@@ -1,0 +1,21 @@
+.background-image {
+    background-image: url("https://static.wixstatic.com/media/1f5788_86be68bda3aa433488a688ec37efd8b7~mv2_d_2000_1489_s_2.jpg/v1/fill/w_1654,h_1231,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/1f5788_86be68bda3aa433488a688ec37efd8b7~mv2_d_2000_1489_s_2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 130vh;
+    width: 100vw;
+    padding: 0;
+}
+
+.our-why-background {
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+}
+
+.div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%
+}

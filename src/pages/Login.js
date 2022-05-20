@@ -1,6 +1,9 @@
 import React from "react";
 import { post } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
+import "./Login.css"
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 function Login() {
   const [loginUsername, setLoginUsername] = React.useState("");
@@ -27,28 +30,40 @@ function Login() {
 
   }
   return (
-    <div>
+    <section className="section">
       <h1>Login</h1>
-      <form onSubmit={checkLoginFields}>
+      <form className="form" onSubmit={checkLoginFields}>
 
-        <label>Username</label>
-        <input 
+      <TextField id="standard-basic" label="Username" variant="standard"
           onChange={(e) => setLoginUsername(e.target.value)}
           name="username"
           value={loginUsername}
         />
-
-        <label>Password</label>
+        {/* <label>Username</label>
         <input 
+          onChange={(e) => setLoginUsername(e.target.value)}
+          name="username"
+          value={loginUsername}
+        /> */}
+  
+        <TextField id="standard-basic" label="Password" variant="standard"
           onChange={(e) => setLoginPassword(e.target.value)}
           name="password"
           type="password"
           value={loginPassword}
         />
+        {/* <label>Password</label>
+        <input 
+          onChange={(e) => setLoginPassword(e.target.value)}
+          name="password"
+          type="password"
+          value={loginPassword}
+        /> */}
 
-        <button type="submit">Login</button>
+        <br/>
+        <Button variant="contained" type="submit">Welcome!</Button>
       </form>
-    </div>
+    </section>
   );
 }
 

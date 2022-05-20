@@ -1,6 +1,10 @@
 import React from "react";
 import { post, get } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
+import "./UpdateUser.css";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function UpdateUser() {
   const [user, setUser] = React.useState({});
@@ -83,71 +87,130 @@ function UpdateUser() {
   console.log("USER VARIABLE", user)
 
   return (
-    <div>
+    <section className="section">
       <h1>Update Your Profile</h1>
-      <form onSubmit={create}>
-        <label>Username</label>
-        <input
+      <form className="form" onSubmit={create}>
+
+      <TextField id="standard-basic" variant="standard"
           name="username"
           value= {user && user.username}
           onChange={(e) =>
             setUser({ ...user, [e.target.name]: e.target.value })
           }
         />
-        <label>Email</label>
+        {/* <label>Username</label>
         <input
+          name="username"
+          value= {user && user.username}
+          onChange={(e) =>
+            setUser({ ...user, [e.target.name]: e.target.value })
+          }
+        /> */}
+
+        <TextField id="standard-basic" variant="standard"
           name="email"
           value={user && user.email}
           onChange={(e) =>
             setUser({ ...user, [e.target.name]: e.target.value })
           }
         />
-        <label>First Name</label>
+        {/* <label>Email</label>
         <input
+          name="email"
+          value={user && user.email}
+          onChange={(e) =>
+            setUser({ ...user, [e.target.name]: e.target.value })
+          }
+        /> */}
+
+        <TextField id="standard-basic" variant="standard"
           name="firstName"
           value={user && user.firstName}
           onChange={(e) =>
             setUser({ ...user, [e.target.name]: e.target.value })
           }
         />
-        <label>Last Name</label>
+        {/* <label>First Name</label>
         <input
+          name="firstName"
+          value={user && user.firstName}
+          onChange={(e) =>
+            setUser({ ...user, [e.target.name]: e.target.value })
+          }
+        /> */}
+
+        <TextField id="standard-basic" variant="standard"
           name="lastName"
           value={user && user.lastName}
           onChange={(e) =>
             setUser({ ...user, [e.target.name]: e.target.value })
           }
         />
-        <label>Date of Birth</label>
+        {/* <label>Last Name</label>
         <input
+          name="lastName"
+          value={user && user.lastName}
+          onChange={(e) =>
+            setUser({ ...user, [e.target.name]: e.target.value })
+          }
+        /> */}
+
+        <TextField id="standard-basic" variant="standard"
           name="dateOfBirth"
           value={user && user.dateOfBirth}
           onChange={(e) =>
             setUser({ ...user, [e.target.name]: e.target.value })
           }
         />
-        <label>City</label>
+        {/* <label>Date of Birth</label>
         <input
+          name="dateOfBirth"
+          value={user && user.dateOfBirth}
+          onChange={(e) =>
+            setUser({ ...user, [e.target.name]: e.target.value })
+          }
+        /> */}
+
+        <TextField id="standard-basic" variant="standard"
           name="city"
           value={user && user.city}
           onChange={(e) =>
             setUser({ ...user, [e.target.name]: e.target.value })
           }
         />
-        <label>State</label>
+        {/* <label>City</label>
         <input
+          name="city"
+          value={user && user.city}
+          onChange={(e) =>
+            setUser({ ...user, [e.target.name]: e.target.value })
+          }
+        /> */}
+
+        <TextField id="standard-basic" variant="standard"
           name="state"
           value={user && user.state}
           onChange={(e) =>
             setUser({ ...user, [e.target.name]: e.target.value })
           }
         />
+        {/* <label>State</label>
+        <input
+          name="state"
+          value={user && user.state}
+          onChange={(e) =>
+            setUser({ ...user, [e.target.name]: e.target.value })
+          }
+        /> */}
 
-        <button type="submit">Update Profile!</button>
+        <br/>
+        <Button variant="contained" type="submit">Update Profile!</Button>
+        {/* <button type="submit">Update Profile!</button> */}
         <p>{updateErrorMessage}</p>
       </form>
-      <button onClick={deleteUser}>Delete Profile</button>
-    </div>
+      <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={deleteUser}>Delete Profile</Button>
+      {/* <button onClick={deleteUser}>Delete Profile</button> */}
+    </section>
   );
 }
 //   return (

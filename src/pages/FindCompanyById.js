@@ -119,6 +119,7 @@ const FindCompanyById = () => {
         <button onClick={deleteCompany}>Delete</button>
       )}
       <br />
+  
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={13}
