@@ -8,6 +8,8 @@ import {
   Marker,
 } from "@react-google-maps/api";
 import "./FindCompanyById.css"
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const FindCompanyById = () => {
   const [companyId, setCompanyId] = React.useState({});
@@ -116,11 +118,13 @@ const FindCompanyById = () => {
           </a>
           <br />
           {id === companyId.creatorId && (
-            <Link to={`/all-companies/${companyId._id}/edit`}>Edit Page</Link>
+            <Button variant="contained"> <Link className="FindCompanyByIdLink" to={`/all-companies/${companyId._id}/edit`}>Edit Page</Link> </Button>
           )}
+          <br/>
           {id === companyId.creatorId && (
-            <button onClick={deleteCompany}>Delete</button>
+            <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={deleteCompany}>Delete</Button>
           )}
+          <br/>
           </div>
         </div>
         <br/>

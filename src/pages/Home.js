@@ -11,7 +11,7 @@ function Home() {
       <section className="our-why-background">
         <div className="div">
           <h2>Our Why</h2>
-          <p>This website is designed to help provide adults with mental disabilities <br/> the resources and tools to find employment with local businesses.</p>
+          <p>This website is designed to help provide adults with special needs <br/> the resources and tools to find employment with local businesses, and be successful.</p>
         </div>
       </section>
     </>
