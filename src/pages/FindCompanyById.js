@@ -7,6 +7,7 @@ import {
   useLoadScript,
   Marker,
 } from "@react-google-maps/api";
+import "./FindCompanyById.css"
 
 const FindCompanyById = () => {
   const [companyId, setCompanyId] = React.useState({});
@@ -68,7 +69,7 @@ const FindCompanyById = () => {
   const libraries = ["places"];
 
   const mapContainerStyle = {
-    width: "600px",
+    width: "100vw",
     height: "500px",
   };
   //console.log("Before Passed To Center", geocodeData)
@@ -94,41 +95,44 @@ const FindCompanyById = () => {
   if (!isLoaded) return "Loading Maps";
 
   return (
-    <div>
-      <img
-        src={companyId.image}
-        style={{ width: 50, height: "auto" }}
-        alt="companyId_image"
-      />
-      <p>{companyId.name}</p>
-      <p>{companyId.about}</p>
-      <p>{companyId.address}</p>
-      <p>{companyId.city}</p>
-      <p>{companyId.state}</p>
-      <p>{companyId.zip}</p>
-      <p>{companyId.phone}</p>
-      <p>{companyId.email}</p>
-      <a style={{ display: "table-cell" }} href={companyId.url} target="_blank">
-        {companyId.url}
-      </a>
-      <br />
-      {id === companyId.creatorId && (
-        <Link to={`/all-companies/${companyId._id}/edit`}>Edit Page</Link>
-      )}
-      {id === companyId.creatorId && (
-        <button onClick={deleteCompany}>Delete</button>
-      )}
-      <br />
-  
-        <GoogleMap
-          mapContainerStyle={mapContainerStyle}
-          zoom={13}
-          center={center}
-          options={options}
-        >
-          {geocodeDataLat && <Marker position={{lat: geocodeDataLat, lng: geocodeDataLng}} />}
-        </GoogleMap>
-    </div>
+    <section className="findCompanySection">
+      <div className="findCompanyDivParent">
+        <img
+          className="findCompanyImage"
+          src={companyId.image}
+          alt="companyId_image"
+        />
+        <div className="findCompanyDivChild">
+          <p>{companyId.name}</p>
+          <p className="findCompanyAboutUs">{companyId.about}</p>
+          <p>Address: {companyId.address}</p>
+          <p>City: {companyId.city}</p>
+          <p>State: {companyId.state}</p>
+          <p>Zip Code: {companyId.zip}</p>
+          <p>Phone: {companyId.phone}</p>
+          <p>Email: {companyId.email}</p>
+          <a style={{ display: "table-cell" }} href={companyId.url} target="_blank">
+            {companyId.url}
+          </a>
+          <br />
+          {id === companyId.creatorId && (
+            <Link to={`/all-companies/${companyId._id}/edit`}>Edit Page</Link>
+          )}
+          {id === companyId.creatorId && (
+            <button onClick={deleteCompany}>Delete</button>
+          )}
+          </div>
+        </div>
+        <br/>
+          <GoogleMap
+            mapContainerStyle={mapContainerStyle}
+            zoom={13}
+            center={center}
+            options={options}
+          >
+            {geocodeDataLat && <Marker position={{lat: geocodeDataLat, lng: geocodeDataLng}} />}
+          </GoogleMap>
+    </section>
   );
 };
 

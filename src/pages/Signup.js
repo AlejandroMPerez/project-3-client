@@ -57,9 +57,9 @@ function Signup() {
   }
 
   return (
-    <section className="section">
+    <section className="signupSection">
       <h1>Signup</h1>
-      <form className="form" onSubmit={checkFields}>
+      <form className="signupForm" onSubmit={checkFields}>
 
         <TextField id="standard-basic" label="Username" variant="standard"
           onChange={(e) => setUsername(e.target.value)}

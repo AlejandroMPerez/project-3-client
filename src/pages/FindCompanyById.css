@@ -1,0 +1,33 @@
+.findCompanySection {
+    margin-top: 8%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.findCompanyDivParent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+    border-radius: 5px;
+}
+
+.findCompanyDivChild{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.findCompanyAboutUs {
+    text-align: center;
+    width: 60%;
+}
+
+.findCompanyImage {
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import { get } from "../authService/authService";
 import { Link } from "react-router-dom";
+import "./AllCompanies.css"
 
 function AllCompanies() {
   const [companiesArr, setCompaniesArr] = React.useState([{
@@ -28,19 +29,22 @@ function AllCompanies() {
   }, []);
 
   return (
-    <section>
-      <h1>Find Business</h1>
+    <section className="allCompaniesSection" >
       {companiesArr.map((company,i) => {
         return (
-          <div key={i}>
-            <img src={company.image} style={{width: 50, height: "auto"}} alt="company_image"/>
-            <p>{company.name}</p>
-            <p>{company.about}</p>
-            <p>{company.city}</p>
-            <p>{company.state}</p>
-            <Link to={`/all-companies/${company._id}`}>See More Details!</Link>
-            <hr/>
+          <>
+          <div className="allCompaniesParentDiv" key={i}>
+            <img className="allCompaniesImage" src={company.image} alt="company_image"/>
+            <div className="allCompaniesChildDiv">
+              <p>{company.name}</p>
+              <p className="allCompaniesAboutUs">{company.about}</p>
+              <p>{company.city}</p>
+              <p>{company.state}</p>
+              <Link to={`/all-companies/${company._id}`}>See More Details!</Link>
+            </div>
           </div> 
+          <br/>
+          </>
         )
         })}
     </section>

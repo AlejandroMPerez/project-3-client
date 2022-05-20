@@ -69,10 +69,10 @@ function CreateCompany() {
   }
 
   return (
-    <section className="section">
+    <section className="CreateCompanySection">
       <h1>Create Business</h1>
 
-      <form className="form" onSubmit={checkCreateCompanyFields}>
+      <form className="CreateCompanyForm" onSubmit={checkCreateCompanyFields}>
 
         <input
           onChange={(e) => handleFileUpload(e)}

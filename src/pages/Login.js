@@ -30,9 +30,9 @@ function Login() {
 
   }
   return (
-    <section className="section">
+    <section className="loginSection">
       <h1>Login</h1>
-      <form className="form" onSubmit={checkLoginFields}>
+      <form className="loginForm" onSubmit={checkLoginFields}>
 
       <TextField id="standard-basic" label="Username" variant="standard"
           onChange={(e) => setLoginUsername(e.target.value)}

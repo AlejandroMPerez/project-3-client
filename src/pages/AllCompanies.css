@@ -1,0 +1,35 @@
+.allCompaniesSection {
+    margin-top: 8%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    
+}
+
+.allCompaniesParentDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+    border-radius: 5px;
+    padding-bottom: 2%;
+}
+
+.allCompaniesChildDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.allCompaniesAboutUs {
+    text-align: center;
+    width: 60%;
+}
+
+.allCompaniesImage {
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+}

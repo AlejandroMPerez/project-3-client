@@ -87,9 +87,9 @@ function UpdateUser() {
   console.log("USER VARIABLE", user)
 
   return (
-    <section className="section">
+    <section className="updateUserSection">
       <h1>Update Your Profile</h1>
-      <form className="form" onSubmit={create}>
+      <form className="updateUserForm" onSubmit={create}>
 
       <TextField id="standard-basic" variant="standard"
           name="username"
