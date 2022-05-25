@@ -19,7 +19,6 @@ function Login() {
       password: loginPassword,
     })
       .then((results) => {
-        //console.log("Results", results.data.token);
         localStorage.setItem("authToken", results.data.token);
         localStorage.setItem("id", results.data.id);
         navigate("/");
@@ -39,12 +38,6 @@ function Login() {
           name="username"
           value={loginUsername}
         />
-        {/* <label>Username</label>
-        <input 
-          onChange={(e) => setLoginUsername(e.target.value)}
-          name="username"
-          value={loginUsername}
-        /> */}
   
         <TextField id="standard-basic" label="Password" variant="standard"
           onChange={(e) => setLoginPassword(e.target.value)}
@@ -52,13 +45,6 @@ function Login() {
           type="password"
           value={loginPassword}
         />
-        {/* <label>Password</label>
-        <input 
-          onChange={(e) => setLoginPassword(e.target.value)}
-          name="password"
-          type="password"
-          value={loginPassword}
-        /> */}
 
         <br/>
         <Button variant="contained" type="submit">Welcome!</Button>

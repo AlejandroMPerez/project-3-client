@@ -22,7 +22,6 @@ const FindCompanyById = () => {
   React.useEffect(() => {
     get(`/companies/all-companies/${params.id}`)
       .then((response) => {
-        //console.log("RESPONSE.DATA", response.data)
         setCompanyId(response.data);
       })
       .catch((err) => {
@@ -31,8 +30,6 @@ const FindCompanyById = () => {
   }, []);
 
   const id = localStorage.getItem("id");
-  //console.log(id)
-  //console.log(companyId.creatorId)
 
   const navigate = useNavigate();
 
@@ -65,7 +62,6 @@ const FindCompanyById = () => {
         console.log(err);
       });
   }, [companyId]);
-  //console.log("GEOCODE DATA", geocodeData)
 
   //Google Maps API
   const libraries = ["places"];
@@ -74,7 +70,6 @@ const FindCompanyById = () => {
     width: "100vw",
     height: "500px",
   };
-  //console.log("Before Passed To Center", geocodeData)
   const center = {
     lat: geocodeDataLat,
     lng: geocodeDataLng,

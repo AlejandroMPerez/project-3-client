@@ -6,7 +6,6 @@ nav {
     align-items: center;
     justify-content: space-between;
     background-color: #d8d8d8f2;
-    /* background-color: #1e430f; */
     position: fixed;
     top: 0;
     width: 100%;
@@ -16,7 +15,6 @@ nav {
   .links {
     text-decoration: none;
     color: white;
-    /* padding: 0 10px; */
     border-right: 1px solid white;
     font-weight: bolder;
     /* Effects Styling */
