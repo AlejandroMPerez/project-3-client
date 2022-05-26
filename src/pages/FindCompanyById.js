@@ -53,8 +53,6 @@ const FindCompanyById = () => {
         },
       })
       .then((response) => {
-        console.log("LAT", response.data.results[0].geometry.location.lat);
-        console.log("LNG", response.data.results[0].geometry.location.lng);
         setGeocodeDataLat(response.data.results[0].geometry.location.lat);
         setGeocodeDataLng(response.data.results[0].geometry.location.lng);
       })
@@ -74,9 +72,6 @@ const FindCompanyById = () => {
     lat: geocodeDataLat,
     lng: geocodeDataLng,
   };
-  console.log("CENTER", center);
-  console.log("Geocode Lat", geocodeDataLat);
-  console.log("Gecodoe Lng", geocodeDataLng);
 
   const options = {
     disableDefaultUI: true, // disables default map widget features (zoom, satellite view etc)
