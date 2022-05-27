@@ -2,14 +2,12 @@ import React, { useRef, useCallback } from "react";
 import { get, post } from "../authService/authService";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-} from "@react-google-maps/api";
-import "./FindCompanyById.css"
-import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import "./FindCompanyById.css";
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+//NOTE: remove commented out code
 
 const FindCompanyById = () => {
   const [companyId, setCompanyId] = React.useState({});
@@ -25,6 +23,7 @@ const FindCompanyById = () => {
         setCompanyId(response.data);
       })
       .catch((err) => {
+        //NOTE: maybe call something similar to setErrorMessage here, so it is more descriptive to the user
         console.log(err.message);
       });
   }, []);
@@ -38,6 +37,8 @@ const FindCompanyById = () => {
       .then(() => {
         navigate("/all-companies");
       })
+      //NOTE: maybe call something similar to setErrorMessage here, so it is more descriptive to the user
+      //NOTE: I'm not sure what the brackets around console.log() do
       .catch((err) => [console.log(err.message)]);
   }
 
@@ -103,29 +104,50 @@ const FindCompanyById = () => {
           <p>Zip Code: {companyId.zip}</p>
           <p>Phone: {companyId.phone}</p>
           <p>Email: {companyId.email}</p>
-          <a style={{ display: "table-cell" }} href={companyId.url} target="_blank">
+          <a
+            style={{ display: "table-cell" }}
+            href={companyId.url}
+            target="_blank"
+          >
             {companyId.url}
           </a>
           <br />
           {id === companyId.creatorId && (
-            <Button variant="contained"> <Link className="FindCompanyByIdLink" to={`/all-companies/${companyId._id}/edit`}>Edit Page</Link> </Button>
+            <Button variant="contained">
+              {" "}
+              <Link
+                className="FindCompanyByIdLink"
+                to={`/all-companies/${companyId._id}/edit`}
+              >
+                Edit Page
+              </Link>{" "}
+            </Button>
           )}
-          <br/>
+          <br />
           {id === companyId.creatorId && (
-            <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={deleteCompany}>Delete</Button>
+            <Button
+              variant="contained"
+              color="error"
+              startIcon={<DeleteIcon />}
+              onClick={deleteCompany}
+            >
+              Delete
+            </Button>
           )}
-          <br/>
-          </div>
+          <br />
         </div>
-        <br/>
-          <GoogleMap
-            mapContainerStyle={mapContainerStyle}
-            zoom={13}
-            center={center}
-            options={options}
-          >
-            {geocodeDataLat && <Marker position={{lat: geocodeDataLat, lng: geocodeDataLng}} />}
-          </GoogleMap>
+      </div>
+      <br />
+      <GoogleMap
+        mapContainerStyle={mapContainerStyle}
+        zoom={13}
+        center={center}
+        options={options}
+      >
+        {geocodeDataLat && (
+          <Marker position={{ lat: geocodeDataLat, lng: geocodeDataLng }} />
+        )}
+      </GoogleMap>
     </section>
   );
 };

@@ -1,9 +1,9 @@
 import React from "react";
 import { post } from "../authService/authService";
-import { useNavigate } from "react-router-dom"
-import "./CreateCompany.css"
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import { useNavigate } from "react-router-dom";
+import "./CreateCompany.css";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 function CreateCompany() {
   const [image, setImage] = React.useState("");
@@ -24,48 +24,53 @@ function CreateCompany() {
     e.preventDefault();
 
     if (!name || !address || !city || !state || !zip) {
-        setErrorMessage("Please fill out Name, Address, City, State, and Zip Code fields.");
-      } else if (!email.includes("@")) {
-        setErrorMessage("Entered email is not valid.");
-      } else {
-
-    post("/companies/create", {
-      image: image,
-      name: name,
-      about: about,
-      address: address,
-      city: city,
-      state: state,
-      zip: zip,
-      phone: phone,
-      email: email,
-      url: url,
-    })
-    .then((results) => {
-        console.log("New Company", results.data)
-        navigate("/all-companies");
-    })
-    .catch((err) => {
-        console.log("Something went wrong", err.message);
-    });
+      setErrorMessage(
+        "Please fill out Name, Address, City, State, and Zip Code fields."
+      );
+    } else if (!email.includes("@")) {
+      setErrorMessage("Entered email is not valid.");
+    } else {
+      post("/companies/create", {
+        image: image,
+        name: name,
+        about: about,
+        address: address,
+        city: city,
+        state: state,
+        zip: zip,
+        phone: phone,
+        email: email,
+        url: url,
+      })
+        .then((results) => {
+          //NOTE: remove console.log()
+          console.log("New Company", results.data);
+          navigate("/all-companies");
+        })
+        .catch((err) => {
+          //NOTE: maybe call setErrorMessage here, so it is more descriptive to the user
+          console.log("Something went wrong", err.message);
+        });
     }
   }
 
   //Cloudinary
   function handleFileUpload(e) {
     //create FormData (object)
-    const uploadData = new FormData()
+    const uploadData = new FormData();
 
-    uploadData.append("imageUrl", e.target.files[0])
+    uploadData.append("imageUrl", e.target.files[0]);
 
     post("/companies/image-upload", uploadData)
-        .then((results) => {
-            console.log("This is the image path", results.data);
-            setImage(results.data)
-        })
-        .catch((err) => {
-            console.log("Error", err.message);
-        })
+      .then((results) => {
+        //NOTE: remove console.log()
+        console.log("This is the image path", results.data);
+        setImage(results.data);
+      })
+      .catch((err) => {
+        //NOTE: maybe call setErrorMessage here, so it is more descriptive to the user
+        console.log("Error", err.message);
+      });
   }
 
   return (
@@ -73,13 +78,12 @@ function CreateCompany() {
       <h1>Create Business</h1>
 
       <form className="CreateCompanyForm" onSubmit={checkCreateCompanyFields}>
+        <input onChange={(e) => handleFileUpload(e)} type="file" />
 
-        <input
-          onChange={(e) => handleFileUpload(e)}
-          type="file"
-        />
-
-        <TextField id="standard-basic" label="Name" variant="standard"
+        <TextField
+          id="standard-basic"
+          label="Name"
+          variant="standard"
           onChange={(e) => setName(e.target.value)}
           name="name"
           value={name}
@@ -97,53 +101,76 @@ function CreateCompany() {
           variant="standard"
         />
 
-        <TextField id="standard-basic" label="Address" variant="standard"
+        <TextField
+          id="standard-basic"
+          label="Address"
+          variant="standard"
           onChange={(e) => setAddress(e.target.value)}
           name="address"
           placeholder="ex: 1234 SW 1 Ave"
           value={address}
         />
 
-        <TextField id="standard-basic" label="City" variant="standard"
+        <TextField
+          id="standard-basic"
+          label="City"
+          variant="standard"
           onChange={(e) => setCity(e.target.value)}
           name="city"
           placeholder="ex: Miami"
           value={city}
         />
 
-        <TextField id="standard-basic" label="State" variant="standard"
+        <TextField
+          id="standard-basic"
+          label="State"
+          variant="standard"
           onChange={(e) => setState(e.target.value)}
           name="state"
           placeholder="ex: FL"
           value={state}
         />
 
-        <TextField id="standard-basic" label="Zip Code" variant="standard"
+        <TextField
+          id="standard-basic"
+          label="Zip Code"
+          variant="standard"
           onChange={(e) => setZip(e.target.value)}
           name="zip"
           value={zip}
         />
 
-        <TextField id="standard-basic" label="Phone" variant="standard"
+        <TextField
+          id="standard-basic"
+          label="Phone"
+          variant="standard"
           onChange={(e) => setPhone(e.target.value)}
           name="phone"
           value={phone}
         />
 
-        <TextField id="standard-basic" label="Email" variant="standard"
+        <TextField
+          id="standard-basic"
+          label="Email"
+          variant="standard"
           onChange={(e) => setEmail(e.target.value)}
           name="email"
           value={email}
         />
 
-        <TextField id="standard-basic" label="Website URL" variant="standard"
+        <TextField
+          id="standard-basic"
+          label="Website URL"
+          variant="standard"
           onChange={(e) => setUrl(e.target.value)}
           name="url"
           value={url}
         />
 
-        <br/>
-        <Button variant="contained" type="submit">Create Business!</Button>
+        <br />
+        <Button variant="contained" type="submit">
+          Create Business!
+        </Button>
         <p>{errorMessage}</p>
       </form>
     </section>

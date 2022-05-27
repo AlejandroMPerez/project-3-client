@@ -2,9 +2,9 @@ import React from "react";
 import { post, get } from "../authService/authService";
 import { useNavigate } from "react-router-dom";
 import "./UpdateUser.css";
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function UpdateUser() {
   const [user, setUser] = React.useState({});
@@ -15,14 +15,14 @@ function UpdateUser() {
   //PREPOPULATE FIELDS WITH CURRENT ACCOUNT INFO
   React.useEffect(() => {
     get("/users/update")
-    .then((results) => {
-      setUser(results.data)
-    })
-    .catch((err) => {
-      console.log("Something went wrong", err.message);
-    }); 
-  }, [])
-
+      .then((results) => {
+        setUser(results.data);
+      })
+      .catch((err) => {
+        //NOTE: maybe call setUpdateErrorMessage here, so it is more descriptive to the user
+        console.log("Something went wrong", err.message);
+      });
+  }, []);
 
   function create(e) {
     e.preventDefault();
@@ -30,7 +30,7 @@ function UpdateUser() {
     post("/users/update", user)
       .then((results) => {
         console.log("Results", results.data);
-        navigate("/")
+        navigate("/");
       })
       .catch((err) => {
         console.log("Error", err.message);
@@ -39,31 +39,34 @@ function UpdateUser() {
 
   function deleteUser() {
     post("/users/delete")
-    .then(() => {
-      localStorage.clear();
-      navigate("/")
-    })
-    .catch((err) => {
-      console.log(err.message)
-    })
+      .then(() => {
+        localStorage.clear();
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   }
-
-  console.log("USER VARIABLE", user)
+  //NOTE: delete console.log()
+  console.log("USER VARIABLE", user);
 
   return (
     <section className="updateUserSection">
       <h1>Update Your Profile</h1>
       <form className="updateUserForm" onSubmit={create}>
-
-      <TextField id="standard-basic" variant="standard"
+        <TextField
+          id="standard-basic"
+          variant="standard"
           name="username"
-          value= {user && user.username}
+          value={user && user.username}
           onChange={(e) =>
             setUser({ ...user, [e.target.name]: e.target.value })
           }
         />
 
-        <TextField id="standard-basic" variant="standard"
+        <TextField
+          id="standard-basic"
+          variant="standard"
           name="email"
           value={user && user.email}
           onChange={(e) =>
@@ -71,7 +74,9 @@ function UpdateUser() {
           }
         />
 
-        <TextField id="standard-basic" variant="standard"
+        <TextField
+          id="standard-basic"
+          variant="standard"
           name="firstName"
           value={user && user.firstName}
           onChange={(e) =>
@@ -79,7 +84,9 @@ function UpdateUser() {
           }
         />
 
-        <TextField id="standard-basic" variant="standard"
+        <TextField
+          id="standard-basic"
+          variant="standard"
           name="lastName"
           value={user && user.lastName}
           onChange={(e) =>
@@ -87,7 +94,9 @@ function UpdateUser() {
           }
         />
 
-        <TextField id="standard-basic" variant="standard"
+        <TextField
+          id="standard-basic"
+          variant="standard"
           name="dateOfBirth"
           value={user && user.dateOfBirth}
           onChange={(e) =>
@@ -95,7 +104,9 @@ function UpdateUser() {
           }
         />
 
-        <TextField id="standard-basic" variant="standard"
+        <TextField
+          id="standard-basic"
+          variant="standard"
           name="city"
           value={user && user.city}
           onChange={(e) =>
@@ -103,7 +114,9 @@ function UpdateUser() {
           }
         />
 
-        <TextField id="standard-basic" variant="standard"
+        <TextField
+          id="standard-basic"
+          variant="standard"
           name="state"
           value={user && user.state}
           onChange={(e) =>
@@ -111,11 +124,20 @@ function UpdateUser() {
           }
         />
 
-        <br/>
-        <Button variant="contained" type="submit">Update Profile!</Button>
+        <br />
+        <Button variant="contained" type="submit">
+          Update Profile!
+        </Button>
         <p>{updateErrorMessage}</p>
       </form>
-      <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={deleteUser}>Delete Profile</Button>
+      <Button
+        variant="contained"
+        color="error"
+        startIcon={<DeleteIcon />}
+        onClick={deleteUser}
+      >
+        Delete Profile
+      </Button>
     </section>
   );
 }
