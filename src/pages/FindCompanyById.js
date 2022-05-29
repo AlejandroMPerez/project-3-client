@@ -7,12 +7,11 @@ import "./FindCompanyById.css";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-//NOTE: remove commented out code
-
 const FindCompanyById = () => {
   const [companyId, setCompanyId] = React.useState({});
   const [geocodeDataLat, setGeocodeDataLat] = React.useState(0);
   const [geocodeDataLng, setGeocodeDataLng] = React.useState(0);
+  const [errorMessage, setErrorMessage] = React.useState("");
 
   //Find Company By ID
   const params = useParams();
@@ -22,9 +21,8 @@ const FindCompanyById = () => {
       .then((response) => {
         setCompanyId(response.data);
       })
-      .catch((err) => {
-        //NOTE: maybe call something similar to setErrorMessage here, so it is more descriptive to the user
-        console.log(err.message);
+      .catch(() => {
+        setErrorMessage("We were unable to return all businesses. Please try again.")
       });
   }, []);
 
@@ -37,9 +35,9 @@ const FindCompanyById = () => {
       .then(() => {
         navigate("/all-companies");
       })
-      //NOTE: maybe call something similar to setErrorMessage here, so it is more descriptive to the user
-      //NOTE: I'm not sure what the brackets around console.log() do
-      .catch((err) => [console.log(err.message)]);
+      .catch(() => {
+        setErrorMessage("Something went wrong deleting this business. Please try again.")
+      })
   }
 
   //Google Geocoding API
@@ -75,7 +73,7 @@ const FindCompanyById = () => {
   };
 
   const options = {
-    disableDefaultUI: true, // disables default map widget features (zoom, satellite view etc)
+    disableDefaultUI: true, 
     zoomControl: true,
   };
 
@@ -134,6 +132,7 @@ const FindCompanyById = () => {
               Delete
             </Button>
           )}
+          <p>{errorMessage}</p>
           <br />
         </div>
       </div>

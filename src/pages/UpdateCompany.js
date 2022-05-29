@@ -22,7 +22,7 @@ function UpdateCompany() {
 
   function checkUpdateFields(e) {
     e.preventDefault();
-    //NOTE: if you're trying to detect for emails, look into the full Regex for email
+    //NOTE: look into the full Regex for email
     if (!updateEmail.includes("@")) {
       setUpdateErrorMessage("Entered email is not valid.");
     } else {
@@ -40,9 +40,8 @@ function UpdateCompany() {
         .then(() => {
           navigate("/all-companies");
         })
-        .catch((err) => {
-          //NOTE: maybe call setUpdateErrorMessage here, so it is more descriptive to the user
-          console.log("Something went wrong", err.message);
+        .catch(() => {
+          setUpdateErrorMessage("Something went wrong when updating your profile. Please try again.")
         });
     }
   }

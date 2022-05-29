@@ -42,14 +42,11 @@ function CreateCompany() {
         email: email,
         url: url,
       })
-        .then((results) => {
-          //NOTE: remove console.log()
-          console.log("New Company", results.data);
+        .then(() => {
           navigate("/all-companies");
         })
         .catch((err) => {
-          //NOTE: maybe call setErrorMessage here, so it is more descriptive to the user
-          console.log("Something went wrong", err.message);
+          setErrorMessage("Something went wrong when creating a company. Please try again.");
         });
     }
   }
@@ -63,13 +60,10 @@ function CreateCompany() {
 
     post("/companies/image-upload", uploadData)
       .then((results) => {
-        //NOTE: remove console.log()
-        console.log("This is the image path", results.data);
         setImage(results.data);
       })
-      .catch((err) => {
-        //NOTE: maybe call setErrorMessage here, so it is more descriptive to the user
-        console.log("Error", err.message);
+      .catch(() => {
+        setErrorMessage("Your company image was not successfully uploaded. Please try again.");
       });
   }
 
@@ -93,7 +87,6 @@ function CreateCompany() {
           onChange={(e) => setAbout(e.target.value)}
           name="about"
           value={about}
-          // MUI below this line
           id="standard-multiline-static"
           label="About Us"
           multiline

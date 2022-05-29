@@ -2,7 +2,6 @@ import axios from "axios";
 import { baseUrl } from "./baseUrl";
 
 export const get = (route) => {
-  //console.log("ENV", process.env)
   let token = localStorage.getItem("authToken");
 
   return axios.get(baseUrl + route, {

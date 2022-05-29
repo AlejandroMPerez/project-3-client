@@ -18,9 +18,8 @@ function UpdateUser() {
       .then((results) => {
         setUser(results.data);
       })
-      .catch((err) => {
-        //NOTE: maybe call setUpdateErrorMessage here, so it is more descriptive to the user
-        console.log("Something went wrong", err.message);
+      .catch(() => {
+        setUpdateErrorMessage("Something went wrong showing your account information.")
       });
   }, []);
 
@@ -47,8 +46,6 @@ function UpdateUser() {
         console.log(err.message);
       });
   }
-  //NOTE: delete console.log()
-  console.log("USER VARIABLE", user);
 
   return (
     <section className="updateUserSection">

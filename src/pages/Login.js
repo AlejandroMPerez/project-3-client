@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 function Login() {
   const [loginUsername, setLoginUsername] = React.useState("");
   const [loginPassword, setLoginPassword] = React.useState("");
+  const [errorMessage, setErrorMessage] = React.useState("");
 
   const navigate = useNavigate();
 
@@ -23,9 +24,8 @@ function Login() {
         localStorage.setItem("id", results.data.id);
         navigate("/");
       })
-      .catch((err) => {
-        //NOTE: maybe call something similar to setErrorMessage here, so it is more descriptive to the user
-        console.log("Something went wrong", err.message);
+      .catch(() => {
+        setErrorMessage("Something went wrong loggin in. Please try again.")
       });
   }
   return (
@@ -56,6 +56,7 @@ function Login() {
           Welcome!
         </Button>
       </form>
+      <p>{errorMessage}</p>
     </section>
   );
 }
